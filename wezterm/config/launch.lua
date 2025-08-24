@@ -1,0 +1,54 @@
+local platform = require('utils.platform')()
+
+local options = {
+   default_prog = {},
+   launch_menu = {},
+}
+
+if platform.is_win then
+   options.default_prog = { 'pwsh' }
+   options.launch_menu = {
+      { label = 'PowerShell Core', args = { 'pwsh' } },
+      { label = 'PowerShell Desktop', args = { 'powershell' } },
+      { label = 'Command Prompt', args = { 'cmd' } },
+      { label = 'Nushell', args = { 'nu' } },
+      {
+         label = 'Git Bash',
+         args = { 'D:\\git\\Git\\bin\\bash.exe' },
+      },
+      {
+         label = 'wsl2',
+         args = { 'ubuntu2204.exe' },
+      },
+      {
+         label = 'huawei',
+         args = { 'ssh', 'root@166.108.224.3', '-p', '2200' },
+      },
+      {
+         label = 'vm',
+         args = { 'ssh', 'root@192.168.0.105', '-p', '22' },
+      },
+      {
+         label = 'oracle',
+         args = { 'ssh', 'root@129.154.200.53', '-p', '2200' },
+      },
+      {
+         label = 'oracle_proxy',
+         args = {'ssh', 'oracle_proxy'}
+      },
+      {
+         label = 'huawei conf',
+         args = {'ssh', 'huawei'}
+      },
+   }
+elseif platform.is_mac then
+   options.default_prog = { '/opt/homebrew/bin/fish' }
+   options.launch_menu = {
+      { label = 'Bash', args = { 'bash' } },
+      { label = 'Fish', args = { '/opt/homebrew/bin/fish' } },
+      { label = 'Nushell', args = { '/opt/homebrew/bin/nu' } },
+      { label = 'Zsh', args = { 'zsh' } },
+   }
+end
+
+return options

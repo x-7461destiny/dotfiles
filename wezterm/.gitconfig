@@ -1,0 +1,57 @@
+[user]
+	name = arutoria
+	email = arutoria@ye.com
+
+[core]
+    editor = code --wait     # 使用 VS Code 作为默认编辑器
+    pager = less -FRX        # 优化输出分页器
+    autocrlf = input         # 避免换行符问题
+    excludesfile = ~/.gitignore_global
+
+[alias]
+    # 基本别名
+    st = status              # 简化 status 为 st
+    co = checkout            # 简化 checkout 为 co
+    br = branch              # 简化 branch 为 br
+    ci = commit              # 简化 commit 为 ci
+    df = diff                # 简化 diff 为 df
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+                             # 优化 log 为可视化效果
+    amend = commit --amend --no-edit
+                             # 快速修正最近一次提交
+    unstage = reset HEAD --  # 取消暂存
+    last = log -1 HEAD       # 查看最近一次提交
+    fixup = commit --fixup   # 创建 fixup 提交
+    squash = rebase -i --autosquash
+                             # 快速使用交互式 rebase 进行 squash
+
+[push]
+    default = simple         # 默认 push 当前分支
+
+[merge]
+    conflictstyle = diff3    # 增强合并冲突信息
+
+[diff]
+    renames = true           # 显示文件重命名
+
+[rerere]
+    enabled = true           # 启用重复合并解决
+
+[credential]
+    helper = store           # 缓存凭据，避免频繁输入密码
+
+[init]
+    defaultBranch = main     # 默认分支名为 main
+
+[color]
+    ui = true                # 启用彩色输出
+
+[log]
+    abbrevCommit = true      # 简化提交哈希
+
+[interactive]
+    diffFilter = delta       # 使用 delta 增强 diff
+
+[delta]
+    features = side-by-side  # 设置 delta 为并排显示 diff
+    syntax-theme = Dracula   # 配置 delta 的主题
