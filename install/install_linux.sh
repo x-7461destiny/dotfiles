@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DOTFILES=$HOME/dotfiles
+DOTFILES=$HOME/.dotfiles
 
 link() {
     src=$1
