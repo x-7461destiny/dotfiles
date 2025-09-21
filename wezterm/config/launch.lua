@@ -9,6 +9,14 @@ if platform.is_win then
    options.default_prog = { 'pwsh' }
    options.launch_menu = {
       { label = 'PowerShell Core', args = { 'pwsh' } },
+      { 
+         label = 'PowerShell proxy', 
+         args = { 'pwsh' },
+         set_environment_variables = {
+            HTTP_PROXY = "http://127.0.0.1:7890",
+            HTTPS_PROXY = "http://127.0.0.1:7890"
+         }
+      },
       { label = 'PowerShell Desktop', args = { 'powershell' } },
       { label = 'Command Prompt', args = { 'cmd' } },
       { label = 'Nushell', args = { 'nu' } },
