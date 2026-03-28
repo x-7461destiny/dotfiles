@@ -1,0 +1,19 @@
+# %AppData%\yazi\config\yazi.toml
+
+[mgr]
+# 三栏比例：父目录 / 当前目录 / 预览
+ratio = [1, 3, 4]
+
+# Windows 日常更实用：目录在前，自然排序
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+sort_translit = false
+
+# 显示隐藏文件，Windows 下看配置文件比较方便
+show_hidden = true
+
+[preview]
+# 预览缓存目录最大尺寸可先用默认；这里不强改
+# 需要时再补

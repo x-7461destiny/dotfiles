@@ -6,12 +6,12 @@ local options = {
 }
 
 if platform.is_win then
-   options.default_prog = { 'pwsh' }
+   options.default_prog = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' }
    options.launch_menu = {
-      { label = 'PowerShell Core', args = { 'pwsh' } },
+      { label = 'PowerShell Core', args = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' } },
       { 
          label = 'PowerShell proxy', 
-         args = { 'pwsh' },
+         args = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' },
          set_environment_variables = {
             HTTP_PROXY = "http://127.0.0.1:7890",
             HTTPS_PROXY = "http://127.0.0.1:7890"
@@ -35,6 +35,10 @@ if platform.is_win then
       {
          label = 'vm',
          args = { 'ssh', 'root@192.168.0.105', '-p', '22' },
+      },
+      {
+         label = 'vmiss',
+         args = { 'ssh', 'root@38.55.111.85', '-p', '22' },
       },
       {
          label = 'oracle',

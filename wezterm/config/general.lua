@@ -4,6 +4,9 @@ return {
    check_for_updates = false,
    exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
    status_update_interval = 1000,
+   -- This disables IME where WezTerm supports it; Windows may still keep IME available.
+   use_dead_keys = false,
+   use_ime = false,
 
    scrollback_lines = 5000,
 

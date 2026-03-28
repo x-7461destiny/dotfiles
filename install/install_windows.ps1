@@ -1,4 +1,4 @@
-$dotfiles = "$HOME\dotfiles"
+$dotfiles = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 
 function Link {
     param($source, $target)
@@ -8,7 +8,12 @@ function Link {
         Remove-Item -Recurse -Force $target
     }
 
-    cmd /c mklink /D $target $source | Out-Null
+    $item = Get-Item $source
+    if ($item.PSIsContainer) {
+        cmd /c mklink /D "$target" "$source" | Out-Null
+    } else {
+        cmd /c mklink "$target" "$source" | Out-Null
+    }
     Write-Output "Linked $target -> $source"
 }
 

@@ -1,0 +1,24 @@
+# %AppData%\yazi\config\theme.toml
+
+[mgr]
+cwd = { fg = "green", bold = true }
+
+hovered         = { reversed = true }
+preview_hovered = { underline = true }
+
+find_keyword  = { fg = "yellow", bold = true }
+find_position = { fg = "magenta", bold = true }
+
+marker_copied   = { fg = "lightyellow", bg = "yellow" }
+marker_cut      = { fg = "lightred", bg = "red" }
+marker_marked   = { fg = "lightcyan", bg = "cyan" }
+marker_selected = { fg = "lightgreen", bg = "green" }
+
+[count]
+copied   = { fg = "black", bg = "yellow" }
+cut      = { fg = "black", bg = "red" }
+selected = { fg = "black", bg = "green" }
+
+[status]
+separator_open  = ""
+separator_close = ""

@@ -1,0 +1,29 @@
+# %AppData%\yazi\config\keymap.toml
+
+[mgr]
+
+prepend_keymap = [
+    # 在当前位置开 PowerShell，退出后回到 Yazi
+    { on = "!", run = 'shell "powershell.exe" --block', desc = "Open PowerShell here" },
+
+    # 用 Neovim 打开当前选中项
+    { on = "o", run = 'shell "nvim" "%1" --block', desc = "Open with Neovim" },
+
+    # 用系统默认程序打开
+    { on = "<Enter>", run = "open", desc = "Open selected file" },
+
+    # 快速回到 C 盘
+    { on = [ "g", "c" ], run = "cd C:\\", desc = "Go to C:\\" },
+
+    # 快速回到 D 盘
+    { on = [ "g", "d" ], run = "cd D:\\", desc = "Go to D:\\" },
+
+    # 快速回到用户目录
+    { on = [ "g", "h" ], run = "cd ~", desc = "Go to home" },
+]
+
+[input]
+prepend_keymap = [
+    # 输入框里按一次 Esc 直接关掉
+    { on = "<Esc>", run = "close", desc = "Cancel input" },
+]
