@@ -37,8 +37,8 @@ if platform.is_win then
          args = { 'ssh', 'root@192.168.0.105', '-p', '22' },
       },
       {
-         label = 'vmiss',
-         args = { 'ssh', 'root@38.55.111.85', '-p', '22' },
+         label = 'vmrack',
+         args = { 'ssh', 'root@38.64.60.162', '-p', '22' },
       },
       {
          label = 'oracle',

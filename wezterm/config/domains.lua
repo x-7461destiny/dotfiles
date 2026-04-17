@@ -23,7 +23,12 @@ return {
    },
 
    -- ref: https://wezfurlong.org/wezterm/multiplexing.html#unix-domains
-   unix_domains = {},
+   unix_domains = {
+      {
+         name = 'unix',
+      },
+   },
+   default_gui_startup_args = { 'connect', 'unix' },
 
    -- ref: https://wezfurlong.org/wezterm/config/lua/WslDomain.html
    wsl_domains = {
