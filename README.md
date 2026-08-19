@@ -143,6 +143,29 @@ Copy-Item wezterm\config\machine.example.lua wezterm\config\machine_local.lua
 
 如果没有 `machine_local.lua`，WezTerm 会使用可移植默认值：Windows 使用 PATH 中的 `pwsh`/`bash`，Linux/macOS 使用 `$SHELL`，不创建私人 SSH Domain，也不启用特定 WSL Domain。
 
+### 本机背景图片
+
+背景图片应放在仓库外，避免再次增大 Git 历史。推荐位置：
+
+- Windows：`$HOME/Pictures/WezTerm/background.jpg`
+- Linux：`$HOME/.local/share/wezterm/background.jpg`
+
+在 `wezterm/config/machine_local.lua` 中配置：
+
+```lua
+local wezterm = require('wezterm')
+
+return {
+   background = {
+      image = wezterm.home_dir .. '/Pictures/WezTerm/background.jpg',
+      overlay_color = '#000000',
+      overlay_opacity = 0.85,
+   },
+}
+```
+
+`overlay_opacity` 越大，图片越暗，终端文字越清晰；设为 `0` 表示不增加黑色遮罩。图片会保持宽高比、居中并裁剪填满窗口。建议使用接近显示器分辨率的 JPEG 或 PNG，例如 1920×1080、2560×1440；没有硬性尺寸限制，但过大的图片会增加解码时间和显存占用。
+
 ## 更新
 
 配置通过符号链接指向仓库，更新仓库即可更新大部分配置：

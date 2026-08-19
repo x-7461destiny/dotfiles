@@ -6,6 +6,15 @@ return {
    -- Used only for the optional "PowerShell proxy" launch entry.
    proxy_url = nil,
 
+   -- Keep the image outside this repository. Examples:
+   -- Windows: wezterm.home_dir .. '/Pictures/WezTerm/background.jpg'
+   -- Linux:   wezterm.home_dir .. '/.local/share/wezterm/background.jpg'
+   background = {
+      image = nil,
+      overlay_color = '#000000',
+      overlay_opacity = 0.85,
+   },
+
    windows = {
       powershell = 'pwsh',
       git_bash = 'bash',

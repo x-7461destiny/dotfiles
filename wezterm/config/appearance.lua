@@ -1,6 +1,7 @@
 -- local fonts = require('config.fonts')
+local machine = require('config.machine')
 
-return {
+local options = {
    animation_fps = 60,
    max_fps = 60,
    front_end = 'WebGpu',
@@ -49,3 +50,26 @@ return {
    },
    inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
 }
+
+local background = machine.background
+if background.image and background.image ~= '' then
+   options.background = {
+      {
+         source = { File = background.image },
+         width = 'Cover',
+         height = 'Cover',
+         repeat_x = 'NoRepeat',
+         repeat_y = 'NoRepeat',
+         horizontal_align = 'Center',
+         vertical_align = 'Middle',
+      },
+      {
+         source = { Color = background.overlay_color },
+         width = '100%',
+         height = '100%',
+         opacity = background.overlay_opacity,
+      },
+   }
+end
+
+return options

@@ -1,5 +1,10 @@
 local defaults = {
    proxy_url = nil,
+   background = {
+      image = nil,
+      overlay_color = '#000000',
+      overlay_opacity = 0.85,
+   },
    windows = {
       powershell = 'pwsh',
       git_bash = 'bash',
