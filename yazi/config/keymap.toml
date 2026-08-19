@@ -7,7 +7,7 @@ prepend_keymap = [
     { on = "!", run = 'shell "powershell.exe" --block', desc = "Open PowerShell here" },
 
     # 用 Neovim 打开当前选中项
-    { on = "o", run = 'shell "nvim" "%1" --block', desc = "Open with Neovim" },
+    { on = "o", run = 'shell "nvim" "%h" --block', desc = "Open with Neovim" },
 
     # 用系统默认程序打开
     { on = "<Enter>", run = "open", desc = "Open selected file" },

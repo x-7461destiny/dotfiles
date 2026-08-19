@@ -1,5 +1,6 @@
 local wezterm = require('wezterm')
 local platform = require('utils.platform')()
+local machine = require('config.machine')
 local act = wezterm.action
 
 local mod = {}
@@ -7,7 +8,7 @@ local mod = {}
 if platform.is_mac then
    mod.SUPER = 'SUPER'
    mod.SUPER_REV = 'SUPER|CTRL'
-elseif platform.is_win then
+elseif platform.is_win or platform.is_linux then
    mod.SUPER = 'CTRL' -- to not conflict with Windows key shortcuts
    mod.SUPER_REV = 'ALT|CTRL'
 end
@@ -15,7 +16,7 @@ end
 local keys = {
    -- misc/useful --
    { key = 'F1', mods = 'NONE', action = 'ActivateCopyMode' },
-   { key = 'p', mods = 'CTRL  ', action = act.ActivateCommandPalette },
+   { key = 'p', mods = 'CTRL', action = act.ActivateCommandPalette },
    { key = 'F3', mods = 'NONE', action = act.ShowLauncher },
    { key = 'F4', mods = 'NONE', action = act.ShowTabNavigator },
    { key = 'F11', mods = 'NONE', action = act.ToggleFullScreen },
@@ -29,7 +30,6 @@ local keys = {
    -- tabs --
    -- tabs: spawn+close
    { key = 't', mods = mod.SUPER, action = act.SpawnTab('DefaultDomain') },
-   { key = 't', mods = mod.SUPER_REV, action = act.SpawnTab({ DomainName = 'WSL:Ubuntu' }) },
    { key = 'w', mods = mod.SUPER_REV, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
@@ -92,7 +92,7 @@ local keys = {
       action = act.ActivateKeyTable({
          name = 'resize_font',
          one_shot = false,
-         timemout_miliseconds = 1000,
+         timeout_milliseconds = 1000,
       }),
    },
    -- resize panes
@@ -102,7 +102,7 @@ local keys = {
       action = act.ActivateKeyTable({
          name = 'resize_pane',
          one_shot = false,
-         timemout_miliseconds = 1000,
+         timeout_milliseconds = 1000,
       }),
    },
    -- rename tab bar 用不到，注释了
@@ -119,6 +119,14 @@ local keys = {
    --    }),
    -- },
 }
+
+if platform.is_win and machine.windows.wsl.enabled then
+   table.insert(keys, {
+      key = 't',
+      mods = mod.SUPER_REV,
+      action = act.SpawnTab({ DomainName = machine.windows.wsl.name }),
+   })
+end
 
 local key_tables = {
    resize_font = {

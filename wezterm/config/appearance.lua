@@ -1,6 +1,7 @@
 local wezterm = require('wezterm')
 local colors = require('colors.custom')
 -- local fonts = require('config.fonts')
+local config_dir = wezterm.config_file:match('^(.*)[/\\]') or wezterm.config_dir
 
 return {
    animation_fps = 60,
@@ -15,7 +16,7 @@ return {
    -- background
    background = {
       {
-         source = { File = wezterm.config_dir .. '/backdrops/space.jpg' },
+         source = { File = config_dir .. '/backdrops/space.jpg' },
       },
       {
          source = { Color = colors.background },

@@ -1,3 +1,12 @@
+local wezterm = require('wezterm')
+local config_dir = wezterm.config_file:match('^(.*)[/\\]') or wezterm.config_dir
+
+package.path = table.concat({
+   config_dir .. '/?.lua',
+   config_dir .. '/?/init.lua',
+   package.path,
+}, ';')
+
 local Config = require('config')
 
 require('events.right-status').setup()

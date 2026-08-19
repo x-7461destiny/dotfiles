@@ -1,4 +1,5 @@
 local platform = require('utils.platform')()
+local machine = require('config.machine')
 
 local options = {
    default_prog = {},
@@ -6,61 +7,53 @@ local options = {
 }
 
 if platform.is_win then
-   options.default_prog = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' }
+   local powershell = machine.windows.powershell
+   options.default_prog = { powershell }
    options.launch_menu = {
-      { label = 'PowerShell Core', args = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' } },
-      { 
-         label = 'PowerShell proxy', 
-         args = { 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' },
-         set_environment_variables = {
-            HTTP_PROXY = "http://127.0.0.1:7890",
-            HTTPS_PROXY = "http://127.0.0.1:7890"
-         }
-      },
+      { label = 'PowerShell Core', args = { powershell } },
       { label = 'PowerShell Desktop', args = { 'powershell' } },
       { label = 'Command Prompt', args = { 'cmd' } },
       { label = 'Nushell', args = { 'nu' } },
-      {
-         label = 'Git Bash',
-         args = { 'D:\\git\\Git\\bin\\bash.exe' },
-      },
-      {
-         label = 'wsl2',
-         args = { 'ubuntu2204.exe' },
-      },
-      {
-         label = 'huawei',
-         args = { 'ssh', 'root@166.108.224.3', '-p', '2200' },
-      },
-      {
-         label = 'vm',
-         args = { 'ssh', 'root@192.168.0.105', '-p', '22' },
-      },
-      {
-         label = 'vmrack',
-         args = { 'ssh', 'root@38.64.60.162', '-p', '22' },
-      },
-      {
-         label = 'oracle',
-         args = { 'ssh', 'root@129.154.200.53', '-p', '2200' },
-      },
-      {
-         label = 'oracle_proxy',
-         args = {'ssh', 'oracle_proxy'}
-      },
-      {
-         label = 'huawei conf',
-         args = {'ssh', 'huawei'}
-      },
+      { label = 'Git Bash', args = { machine.windows.git_bash } },
    }
+
+   if machine.proxy_url then
+      table.insert(options.launch_menu, 2, {
+         label = 'PowerShell proxy',
+         args = { powershell },
+         set_environment_variables = {
+            HTTP_PROXY = machine.proxy_url,
+            HTTPS_PROXY = machine.proxy_url,
+         },
+      })
+   end
+
+   local wsl = machine.windows.wsl
+   if wsl.enabled then
+      table.insert(options.launch_menu, {
+         label = wsl.name,
+         args = { 'wsl.exe', '-d', wsl.distribution },
+      })
+   end
 elseif platform.is_mac then
-   options.default_prog = { '/opt/homebrew/bin/fish' }
+   local shell = os.getenv('SHELL') or 'zsh'
+   options.default_prog = { shell }
    options.launch_menu = {
       { label = 'Bash', args = { 'bash' } },
-      { label = 'Fish', args = { '/opt/homebrew/bin/fish' } },
-      { label = 'Nushell', args = { '/opt/homebrew/bin/nu' } },
+      { label = 'Default shell', args = { shell } },
       { label = 'Zsh', args = { 'zsh' } },
    }
+elseif platform.is_linux then
+   local shell = os.getenv('SHELL') or 'bash'
+   options.default_prog = { shell }
+   options.launch_menu = {
+      { label = 'Default shell', args = { shell } },
+      { label = 'Bash', args = { 'bash' } },
+   }
+end
+
+for _, entry in ipairs(machine.launch_menu) do
+   table.insert(options.launch_menu, entry)
 end
 
 return options

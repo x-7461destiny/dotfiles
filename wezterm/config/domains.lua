@@ -1,26 +1,8 @@
-return {
-   -- ref: https://wezfurlong.org/wezterm/config/lua/SshDomain.html
-   ssh_domains = {
-      {
-         multiplexing = 'None',
-         name = 'oracle_proxy',
-         remote_address = '129.154.200.53:2200',
+local platform = require('utils.platform')()
+local machine = require('config.machine')
 
-         username = 'root',
-         ssh_option = {
-            identifyfile = 'C:\\Users/Arutorialo\\.ssh\\id_rsa',
-            ProxyCommand = 'nc -x 127.0.0.1:7890 %h %p',
-         },
-      },
-      -- multiplexing = 'None',
-      -- name = 'aliyun',
-      -- remote_address = '112.74.105.26',
-      -- username = 'root',
-      -- ssh_option = {
-      --    identifyfile = 'C:\\Users/Arutorialo/.ssh/id_rsa',
-      -- },
-      --      port = 22,
-   },
+local options = {
+   ssh_domains = machine.ssh_domains,
 
    -- ref: https://wezfurlong.org/wezterm/multiplexing.html#unix-domains
    unix_domains = {
@@ -31,13 +13,23 @@ return {
    default_gui_startup_args = { 'connect', 'unix' },
 
    -- ref: https://wezfurlong.org/wezterm/config/lua/WslDomain.html
-   wsl_domains = {
-      {
-         name = 'WSL:Ubuntu',
-         distribution = 'Ubuntu',
-         username = 'kevin',
-         default_cwd = '/home/kevin',
-         default_prog = { 'fish' },
-      },
-   },
 }
+
+if platform.is_win then
+   local wsl = machine.windows.wsl
+   if not wsl.enabled then
+      return options
+   end
+
+   options.wsl_domains = {
+      {
+         name = wsl.name,
+         distribution = wsl.distribution,
+         username = wsl.username,
+         default_cwd = wsl.default_cwd,
+         default_prog = wsl.default_prog,
+      },
+   }
+end
+
+return options
