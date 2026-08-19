@@ -1,7 +1,4 @@
-local wezterm = require('wezterm')
-local colors = require('colors.custom')
 -- local fonts = require('config.fonts')
-local config_dir = wezterm.config_file:match('^(.*)[/\\]') or wezterm.config_dir
 
 return {
    animation_fps = 60,
@@ -12,19 +9,6 @@ return {
    -- color scheme
    -- colors = colors,
    color_scheme = 'FishTank',
-
-   -- background
-   background = {
-      {
-         source = { File = config_dir .. '/backdrops/space.jpg' },
-      },
-      {
-         source = { Color = colors.background },
-         height = '100%',
-         width = '100%',
-         opacity = 0.90,
-      },
-   },
 
    -- scrollbar
    enable_scroll_bar = true,
